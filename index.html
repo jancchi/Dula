@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Birth & Labor Doula | Support with Care</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="js/main.js"></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <div class="logo">Doula Name</div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="events.html">Events</a></li>
+        <li><a href="#contact" class="btn">Book a Session</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Gentle, informed support for your birth journey</h1>
+    <p>Personalized labor and birth support rooted in trust, calm, and presence.</p>
+    <a href="#contact" class="btn btn-primary">Book a 1-on-1</a>
+  </section>
+
+  <section id="about" class="section">
+    <h2>About Me</h2>
+    <p>
+      I’m a certified birth and labor doula supporting families through pregnancy,
+      birth, and early postpartum with compassionate care.
+    </p>
+  </section>
+
+  <section id="services" class="section alt">
+    <h2>Services</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Labor Support</h3>
+        <p>Continuous emotional and physical support during labor and birth.</p>
+      </div>
+      <div class="card">
+        <h3>Birth Preparation</h3>
+        <p>Education, comfort techniques, and birth planning sessions.</p>
+      </div>
+      <div class="card">
+        <h3>Postpartum Support</h3>
+        <p>Gentle care during the early days after birth.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <h2>Book a 1-on-1 Session</h2>
+
+    <form name="booking" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="booking" />
+
+      <label>
+        Name
+        <input type="text" name="name" required />
+      </label>
+
+      <label>
+        Email
+        <input type="email" name="email" required />
+      </label>
+
+      <label>
+        Message
+        <textarea name="message" rows="4"></textarea>
+      </label>
+
+      <button type="submit" class="btn btn-primary">Send Request</button>
+    </form>
+  </section>
+
+  <footer class="footer">
+    <p>© 2026 Doula Name</p>
+  </footer>
+</body>
+</html>
