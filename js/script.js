@@ -13,8 +13,52 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
  * 
  */
 
+const API_KEY="AIzaSyBdyFGCnt4I_NcxIhHU7wjAFRN8LrmoOn8";
+const CALENDAR_ID="90602a0b6bda9b6f7c3b5a00b58cd39c8cfd488e629167149f8547483137ae7f@group.calendar.google.com";
+
+import { Calendar } from '@fullcalendar/core';
+import googleCalendarPlugin from '@fullcalendar/google-calendar';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+
+const calendarEl = document.getElementById('calendar');
+const calendar = new Calendar(calendarEl, {
+  plugins: [timeGridPlugin, googleCalendarPlugin, interactionPlugin],
+  initialView: 'timeGridDay', // Google-style day view
+  googleCalendarApiKey: API_KEY,
+  events: {
+    googleCalendarId: CALENDAR_ID,
+    display: 'background', // Shows busy times as background blocks
+    color: '#ff9f89'       // Reddish color for busy slots
+  },
+  
+  // 1. Define your available booking window (10 PM to 6 AM)
+  businessHours: {
+    startTime: '22:00',
+    endTime: '06:00',
+    daysOfWeek: [0, 1, 2, 3, 4, 5, 6] // Every day
+  },
+
+  // 2. Force selections to stay within those business hours
+  selectable: true,
+  selectConstraint: 'businessHours', 
+  
+  // 3. UI: Hide the 6 AM - 10 PM gap completely from view
+  slotMinTime: '22:00:00',
+  slotMaxTime: '06:00:00',
+
+  select: function(info) {
+    // This triggers when a user clicks an hour
+    alert('Selected from ' + info.startStr + ' to ' + info.endStr);
+    // Open your contact form here
+  }
+});
+
+calendar.render();
+
 document.addEventListener('DOMContentLoaded', () => {
     
+//alert(calendarEl.className);
     const revealOptions = {
         threshold: 0.1,
         rootMargin: "0px 0px -50px 0px"
@@ -30,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, revealOptions);
 
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    //document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 
 
@@ -48,9 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         flatpickr(dateInput, {
             inline: true,
+            enableTime: true,
             minDate: "today",
             disable: occupiedDates, 
-            dateFormat: "Y-m-d",
+            dateFormat: "Y-m-d H:m",
             locale: {
                 firstDayOfWeek: 1 
             },
@@ -102,16 +147,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
-
-// 4. GOOGLE CALENDAR FETCH (Náčrt pre C++ dev-a)
-/*
-   Pre automatizáciu by si musel:
-   1. V Google Cloud Console vytvoriť API Key.
-   2. Použiť fetch: 
-      https://www.googleapis.com/calendar/v3/calendars/{CAL_ID}/events?key={API_KEY}&timeMin={NOW}
-   3. Výsledok (JSON) namapovať na pole 'occupiedDates'.
-   
-   Pre začiatok však klientke stačí, ak tie "obsadené" dátumy 
-   manuálne raz za čas hodíš do kódu, alebo ich necháš vybrať a dula 
-   termín zamietne emailom (najjednoduchšie MVP).
-*/
