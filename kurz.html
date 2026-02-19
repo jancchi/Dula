@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurz prípravy na pôrod</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="js/script.js"></script>
+</head>
+<body class="bg-[#fdf2f2] text-slate-800">
+
+    <div class="max-w-4xl mx-auto px-6 py-20">
+        <a href="index.html" class="text-rose-500 mb-8 inline-block hover:underline">← Späť na úvod</a>
+        
+        <h1 class="text-4xl text-rose-900 mb-6 font-serif">Kurz prípravy na pôrod</h1>
+        
+        <div class="grid md:grid-cols-2 gap-12">
+            <div class="space-y-4">
+                <p>Tu bude detailný popis kurzu, čo sa klientka naučí a ako prebieha.</p>
+                <h3 class="font-bold mt-8">Pozrite si voľné termíny v kalendári:</h3>
+                
+                <div class="border-2 border-rose-200 rounded-xl overflow-hidden h-80">
+                    <iframe src="https://calendar.google.com/calendar/embed?src=TVOJ_ID&ctz=Europe%2FBratislava" 
+                            style="border: 0" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-3xl shadow-lg border border-rose-100">
+                <h3 class="text-xl mb-6 font-serif text-rose-800">Rezervovať termín</h3>
+                
+                <form name="rezervacia-kurz" method="POST" data-netlify="true" class="space-y-4">
+                    <div>
+                        <label class="block text-sm mb-1">Meno a priezvisko</label>
+                        <input type="text" name="name" required class="w-full p-3 rounded-lg border-rose-100 border bg-rose-50/30 focus:outline-rose-400">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1">Email / Telefón</label>
+                        <input type="text" name="contact" required class="w-full p-3 rounded-lg border-rose-100 border bg-rose-50/30 focus:outline-rose-400">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1">Vybraný dátum (podľa kalendára)</label>
+                        <input type="date" name="date" required class="w-full p-3 rounded-lg border-rose-100 border bg-rose-50/30 focus:outline-rose-400">
+                    </div>
+                    <button type="submit" class="w-full bg-rose-400 text-white py-3 rounded-xl hover:bg-rose-500 shadow-md">
+                        Odoslať nezáväznú rezerváciu
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

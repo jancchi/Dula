@@ -1,85 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Birth & Labor Doula | Support with Care</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <script defer src="js/main.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dula Zuzka | Senec, Bratislava, Galanta, Trnava</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="js/script.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .bg-relax { background-color: #fdf2f2; } /* Soft Rose background */
+    </style>
 </head>
+<body class="bg-relax text-slate-800">
 
-<body>
-  <header class="site-header">
-    <nav class="nav">
-      <div class="logo">Doula Name</div>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="events.html">Events</a></li>
-        <li><a href="#contact" class="btn">Book a Session</a></li>
-      </ul>
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-rose-100">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-semibold text-rose-400 italic">Logo</div>
+            <div class="space-x-8 hidden md:flex">
+                <a href="#domov" class="hover:text-rose-500 transition">Úvod</a>
+                <a href="#ponuka" class="hover:text-rose-500 transition">Ponuka</a>
+                <a href="#kontakt" class="hover:text-rose-500 transition">Kontakt</a>
+            </div>
+        </div>
     </nav>
-  </header>
 
-  <section class="hero">
-    <h1>Gentle, informed support for your birth journey</h1>
-    <p>Personalized labor and birth support rooted in trust, calm, and presence.</p>
-    <a href="#contact" class="btn btn-primary">Book a 1-on-1</a>
-  </section>
+    <section id="domov" class="pt-32 pb-20 px-6 max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
+        <div class="md:w-1/2 space-y-6">
+            <h1 class="text-5xl md:text-6xl text-rose-900 leading-tight">Som dula zo Senca ...</h1>
+            <p class="text-lg text-slate-600 leading-relaxed">
+                Pomáham ženám nájsť ich vnútornú silu pri pôrode. Som tu pre vás ako opora, sprievodkyňa a pokojný prístav v období zrodenia.
+            </p>
+            <a href="#ponuka" class="inline-block bg-rose-400 text-white px-8 py-3 rounded-full hover:bg-rose-500 transition shadow-lg shadow-rose-200">
+                Moje služby
+            </a>
+        </div>
+        <div class="md:w-1/2">
+            <div class="w-full h-[500px] bg-rose-200 rounded-2xl overflow-hidden shadow-2xl rotate-2">
+                <div class="w-full h-full flex items-center justify-center text-rose-400">foto</div>
+            </div>
+        </div>
+    </section>
 
-  <section id="about" class="section">
-    <h2>About Me</h2>
-    <p>
-      I’m a certified birth and labor doula supporting families through pregnancy,
-      birth, and early postpartum with compassionate care.
-    </p>
-  </section>
+    <section id="ponuka" class="py-20 bg-white reveal opacity-0 translate-y-10 transition-all duration-1000 p-8 border border-rose-50">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-4xl text-center mb-16 text-rose-900">Ako vám môžem pomôcť</h2>
+            <div class="grid md:grid-cols-2 gap-10 ">
+                <div class="p-8 border border-rose-50 rounded-3xl bg-relax hover:shadow-xl transition group reveal opacity-0 translate-y-10 transition-all duration-1000 p-8 border border-rose-50">
+                    <h3 class="text-2xl mb-4 text-rose-800">Kurz prípravy na pôrod</h3>
+                    <p class="text-slate-600 mb-6">Pripravte sa na príchod bábätka v kľude a s dostatkom informácií.</p>
+                    <a href="kurz.html" class="text-rose-500 font-medium group-hover:underline underline-offset-4">Viac o kurze &rarr;</a>
+                </div>
+                <div class="p-8 border border-rose-50 rounded-3xl bg-relax hover:shadow-xl transition group reveal opacity-0 translate-y-10 transition-all duration-1000 p-8 border border-rose-50">
+                    <h3 class="text-2xl mb-4 text-rose-800">Sprevádzanie pri pôrode</h3>
+                    <p class="text-slate-600 mb-6">Budem vašou kontinuálnou emocionálnou a fyzickou oporou priamo v pôrodnici.</p>
+                    <a href="sprievod.html" class="text-rose-500 font-medium group-hover:underline underline-offset-4">Viac o sprevádzaní &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section id="services" class="section alt">
-    <h2>Services</h2>
-    <div class="cards">
-      <div class="card">
-        <h3>Labor Support</h3>
-        <p>Continuous emotional and physical support during labor and birth.</p>
-      </div>
-      <div class="card">
-        <h3>Birth Preparation</h3>
-        <p>Education, comfort techniques, and birth planning sessions.</p>
-      </div>
-      <div class="card">
-        <h3>Postpartum Support</h3>
-        <p>Gentle care during the early days after birth.</p>
-      </div>
-    </div>
-  </section>
+    <footer id="kontakt" class="py-12 border-t border-rose-100 text-center">
+        <p class="text-rose-900 font-semibold italic text-xl">Zuzana Michálková</p>
+        <p class="text-slate-500 mt-2">dula-zuzka@gmail.com | +421 902 740 497</p>
+    </footer>
 
-  <section id="contact" class="section">
-    <h2>Book a 1-on-1 Session</h2>
-
-    <form name="booking" method="POST" data-netlify="true">
-      <input type="hidden" name="form-name" value="booking" />
-
-      <label>
-        Name
-        <input type="text" name="name" required />
-      </label>
-
-      <label>
-        Email
-        <input type="email" name="email" required />
-      </label>
-
-      <label>
-        Message
-        <textarea name="message" rows="4"></textarea>
-      </label>
-
-      <button type="submit" class="btn btn-primary">Send Request</button>
-    </form>
-  </section>
-
-  <footer class="footer">
-    <p>© 2026 Doula Name</p>
-  </footer>
 </body>
 </html>
