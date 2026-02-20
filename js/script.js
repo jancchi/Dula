@@ -12,49 +12,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
  * Dula Project - Main JS
  * 
  */
-
 const API_KEY="AIzaSyBdyFGCnt4I_NcxIhHU7wjAFRN8LrmoOn8";
 const CALENDAR_ID="90602a0b6bda9b6f7c3b5a00b58cd39c8cfd488e629167149f8547483137ae7f@group.calendar.google.com";
-
-import { Calendar } from '@fullcalendar/core';
-import googleCalendarPlugin from '@fullcalendar/google-calendar';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
-
-const calendarEl = document.getElementById('calendar');
-const calendar = new Calendar(calendarEl, {
-  plugins: [timeGridPlugin, googleCalendarPlugin, interactionPlugin],
-  initialView: 'timeGridDay', // Google-style day view
-  googleCalendarApiKey: API_KEY,
-  events: {
-    googleCalendarId: CALENDAR_ID,
-    display: 'background', // Shows busy times as background blocks
-    color: '#ff9f89'       // Reddish color for busy slots
-  },
-  
-  // 1. Define your available booking window (10 PM to 6 AM)
-  businessHours: {
-    startTime: '22:00',
-    endTime: '06:00',
-    daysOfWeek: [0, 1, 2, 3, 4, 5, 6] // Every day
-  },
-
-  // 2. Force selections to stay within those business hours
-  selectable: true,
-  selectConstraint: 'businessHours', 
-  
-  // 3. UI: Hide the 6 AM - 10 PM gap completely from view
-  slotMinTime: '22:00:00',
-  slotMaxTime: '06:00:00',
-
-  select: function(info) {
-    // This triggers when a user clicks an hour
-    alert('Selected from ' + info.startStr + ' to ' + info.endStr);
-    // Open your contact form here
-  }
-});
-
-calendar.render();
 
 document.addEventListener('DOMContentLoaded', () => {
     
@@ -74,38 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, revealOptions);
 
-    //document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-
-
-    const dateInput = document.querySelector('input[name="date"]');
-    
-    if (dateInput) {
-
-        // Fill from google cloud api
-        const occupiedDates = [
-            "2024-05-20", 
-            "2024-05-21", 
-            "2024-06-01",
-            "2026-02-20"
-        ];
-
-        flatpickr(dateInput, {
-            inline: true,
-            enableTime: true,
-            minDate: "today",
-            disable: occupiedDates, 
-            dateFormat: "Y-m-d H:m",
-            locale: {
-                firstDayOfWeek: 1 
-            },
-            onChange: function(selectedDates, dateStr) {
-                console.log("Vybraný dátum:", dateStr);
-            }
-        });
-    }
-
-
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
     const bookingForm = document.querySelector('form[data-netlify="true"]');
     
@@ -140,10 +68,73 @@ document.addEventListener('DOMContentLoaded', () => {
                     throw new Error("Chyba pri odosielaní");
                 }
             } catch (error) {
-                alert("Ups, niečo sa nepodarilo. Skúste to prosím neskôr alebo napíšte email.");
+                alert("Ups, niečo sa nepodarilo. Skúste to prosím neskôr alebo napíšte email. error: " + error);
                 submitBtn.innerText = originalBtnText;
                 submitBtn.disabled = false;
             }
         });
     }
+
+
+ const calendarEl = document.getElementById('calendar');
+
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'timeGridWeek',
+    googleCalendarApiKey: API_KEY,
+    selectOverlap: false,
+
+    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+    
+    height: 700,
+    aspectRatio: 3,
+
+    events: {
+      googleCalendarId: CALENDAR_ID,
+      display: 'background',
+      color: '#ff9f89'
+    },
+
+    locale: "sk",
+
+    firstDay: 1, 
+    validRange: {
+        start: new Date() // Users cannot select or navigate before today
+    },
+
+    slotLabelFormat: {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: false
+    },
+
+    eventTimeFormat: {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+    },
+
+    slotMinTime: '8:00:00',
+    slotMaxTime: '21:00:00', 
+
+    businessHours: [
+      {
+        startTime: '8:00',
+        endTime: '21:00',
+        daysOfWeek: [0, 1, 2, 3, 4, 5, 6]
+      },
+    ],
+
+    selectable: true,
+    selectConstraint: 'businessHours',
+
+    select: function(info) {
+        alert('Selected from ' + info.startStr + ' to ' + info.endStr);
+
+        document.getElementById("date_input").value = info.startStr;
+
+    }
+  });
+
+  calendar.render();
 });
+
