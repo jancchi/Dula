@@ -8,21 +8,31 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.20/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.20/index.global.min.js'></script>
 
     <script type="module" src="js/script.js"></script>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-[#fdf2f2] text-slate-800">
 
-    <div class="max-w-4xl mx-auto px-6 py-20">
+    <div class="max-w-6xl mx-auto px-4 md:px-6 py-12">
         <a href="index.html" class="text-rose-500 mb-8 inline-block hover:underline">← Späť na úvod</a>
         
-        <h1 class="text-4xl text-rose-900 mb-6 font-serif">Sprevádzanie pri pôrode</h1>
+        <h1 class="text-4xl text-rose-900 mb-10 font-serif">Sprevádzanie pri pôrode</h1>
         
-        <div class="grid md:grid-cols-2 gap-12">
-            <div class="space-y-4">
-                <p>Tu bude detailný popis sprevádzania pri pôrode, čo sa klientka naučí a ako prebieha.</p>
-                <h3 class="font-bold mt-8">Pozrite si voľné termíny v kalendári:</h3>
-                <div id="calendar"></div>
+        <div class="grid lg:grid-cols-3 gap-10 mb-16">
+            <div class="lg:col-span-2 space-y-6">
+                <p class="text-lg leading-relaxed text-slate-600">
+                    Tu bude detailný popis Sprevádzania. 
+                </p>
+                <div class="bg-rose-100/50 p-6 rounded-2xl border border-rose-200">
+                    <h3 class="font-bold text-rose-800 mb-2 font-serif text-xl">Inštrukcie k rezervácii:</h3>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li>V kalendári nižšie si vyberte voľný čas (biele polia).</li>
+                        <li>Kliknutím a potiahnutím si označte dĺžku stretnutia.</li>
+                        <li>Vybraný čas sa automaticky zapíše do formulára vpravo.</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="bg-white p-8 rounded-3xl shadow-lg border border-rose-100">
@@ -30,22 +40,29 @@
                 
                 <form name="rezervacia-kurz" method="POST" data-netlify="true" class="space-y-4">
                     <div>
-                        <label class="block text-sm mb-1">Meno a priezvisko</label>
-                        <input type="text" name="name" required class="w-full p-3 rounded-lg border-rose-100 border bg-rose-50/30 focus:outline-rose-400">
+                        <label class="block text-sm mb-1 font-medium">Meno a priezvisko</label>
+                        <input type="text" name="name" required class="w-full p-3 rounded-lg border-rose-100 border bg-rose-50/30 focus:outline-rose-400 transition-all">
                     </div>
                     <div>
-                        <label class="block text-sm mb-1">Email / Telefón</label>
-                        <input type="text" name="contact" required class="w-full p-3 rounded-lg border-rose-100 border bg-rose-50/30 focus:outline-rose-400">
+                        <label class="block text-sm mb-1 font-medium">Email / Telefón</label>
+                        <input type="text" name="contact" required class="w-full p-3 rounded-lg border-rose-100 border bg-rose-50/30 focus:outline-rose-400 transition-all">
                     </div>
                     <div>
-                        <label class="block text-sm mb-1">Vybraný dátum (podľa kalendára)</label>
-                        <input id="date_input" readonly placeholder="YYYY-MM-DDTHH:mm" type="datetime" name="date" required class="w-full p-3 rounded-lg border-rose-100 border bg-rose-50/30 focus:outline-rose-400">
+                        <label class="block text-sm mb-1 font-medium">Vybraný čas</label>
+                        <input id="date_input" readonly name="date" required 
+                               class="w-full p-3 rounded-lg border-rose-200 border bg-white font-bold text-rose-600 focus:outline-none cursor-default"
+                               placeholder="Kliknite do kalendára...">
                     </div>
-                    <button type="submit" class="w-full bg-rose-400 text-white py-3 rounded-xl hover:bg-rose-500 shadow-md">
-                        Odoslať nezáväznú rezerváciu
+                    <button type="submit" class="w-full bg-rose-400 text-white py-4 rounded-xl hover:bg-rose-500 shadow-lg shadow-rose-200 transition-all font-bold">
+                        Odoslať rezerváciu
                     </button>
                 </form>
             </div>
+        </div>
+
+        <div class="bg-white p-4 md:p-8 rounded-3xl shadow-inner border border-rose-100">
+            <h3 class="text-2xl mb-6 font-serif text-rose-900">Kalendár dostupnosti</h3>
+            <div id="calendar" class="min-h-[600px]"></div>
         </div>
     </div>
 

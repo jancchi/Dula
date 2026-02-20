@@ -79,14 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
  const calendarEl = document.getElementById('calendar');
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'timeGridWeek',
+    initialView: window.innerWidth < 768 ? 'timeGridDay' : 'timeGridWeek',
     googleCalendarApiKey: API_KEY,
     selectOverlap: false,
 
     schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-    
-    height: 700,
-    aspectRatio: 3,
 
     events: {
       googleCalendarId: CALENDAR_ID,
@@ -115,23 +112,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     slotMinTime: '8:00:00',
     slotMaxTime: '21:00:00', 
-
-    businessHours: [
-      {
-        startTime: '8:00',
-        endTime: '21:00',
-        daysOfWeek: [0, 1, 2, 3, 4, 5, 6]
-      },
-    ],
+    slotDuration: '00:30:00',
 
     selectable: true,
-    selectConstraint: 'businessHours',
+    allDaySlot: false,
+
+    eventDataTransform: function(eventData) {
+        return {
+            ...eventData,
+            overlap: false,       // Explicitne povieme, že cez toto sa nedá ísť
+            display: 'background' // Vynútime background štýl
+        };
+    },
+
+    slotLabelContent: (arg) => {
+        return {
+            html: `<div class="text-xl font-light text-rose-300">${arg.text}</div>`
+        };
+    },
 
     select: function(info) {
-        alert('Selected from ' + info.startStr + ' to ' + info.endStr);
+        const startDate = new Date(info.start);
+        const options = { 
+            day: '2-digit', month: '2-digit', year: 'numeric', 
+            hour: '2-digit', minute: '2-digit' 
+        };
+        const formattedDate = startDate.toLocaleString('sk-SK', options);
 
-        document.getElementById("date_input").value = info.startStr;
-
+        const input = document.getElementById("date_input");
+        if (input) {
+            input.value = formattedDate;
+            
+            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            
+            input.classList.add('ring-2', 'ring-rose-400');
+            setTimeout(() => input.classList.remove('ring-2', 'ring-rose-400'), 1000);
+        }
     }
   });
 
