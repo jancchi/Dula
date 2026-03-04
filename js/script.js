@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
  const calendarEl = document.getElementById('calendar');
-
+if(calendarEl){
   const calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: window.innerWidth < 768 ? 'timeGridDay' : 'timeGridWeek',
     googleCalendarApiKey: API_KEY,
@@ -152,5 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   calendar.render();
+}
 });
+
 
