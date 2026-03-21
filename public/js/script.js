@@ -106,6 +106,16 @@ if(calendarEl){
     selectable: true,
     allDaySlot: false,
 
+
+    longPressDelay: 0,        
+    selectMinDistance: 5,     
+    
+    dateClick: function(info) {
+        if (window.innerWidth < 768) {
+            setDateInput(info.date);
+        }
+    },
+
     eventDataTransform: function(eventData) {
         return {
             ...eventData,
