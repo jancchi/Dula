@@ -1,13 +1,3 @@
-// Reserved for future enhancements
-// Example: smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', e => {
-    e.preventDefault();
-    document.querySelector(anchor.getAttribute('href'))
-      .scrollIntoView({ behavior: 'smooth' });
-  });
-});
-
 /**
  * Dula Project - Main JS
  * 
@@ -17,7 +7,6 @@ const CALENDAR_ID="90602a0b6bda9b6f7c3b5a00b58cd39c8cfd488e629167149f8547483137a
 
 document.addEventListener('DOMContentLoaded', () => {
     
-//alert(calendarEl.className);
     const revealOptions = {
         threshold: 0.1,
         rootMargin: "0px 0px -50px 0px"

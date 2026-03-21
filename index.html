@@ -1,11 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="sk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dula Zuzka | Senec, Bratislava, Galanta, Trnava</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <!--
     
@@ -13,67 +16,175 @@
     -->
     <script type="module" src="js/script.js"></script>
 
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.20/index.global.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.20/index.global.min.js"></script>
 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Inter:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        h1, h2, h3 { font-family: 'Playfair Display', serif; }
-        .bg-relax { background-color: #fdf2f2; } /* Soft Rose background */
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Playfair Display", serif;
+      }
+      .bg-relax {
+        background-color: #fdf2f2;
+      } /* Soft Rose background */
     </style>
-</head>
-<body class="bg-relax text-slate-800">
-
-    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-rose-100">
-        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-semibold text-rose-400 italic">Logo</div>
-            <div class="space-x-8 hidden md:flex">
-                <a href="#domov" class="hover:text-rose-500 transition">Úvod</a>
-                <a href="#ponuka" class="hover:text-rose-500 transition">Ponuka</a>
-                <a href="#kontakt" class="hover:text-rose-500 transition">Kontakt</a>
-            </div>
+  </head>
+  <body class="bg-relax text-slate-800">
+    <nav
+      class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-rose-100"
+    >
+      <div
+        class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <!-- <div class="text-2xl font-semibold text-rose-400 italic">Logo</div> -->
+        <img src="logo_mama.png" alt="Dula Zuzka Logo" class="h-10 w-auto" />
+        <div class="space-x-8 hidden md:flex">
+          <a href="#domov" class="hover:text-rose-500 transition">Úvod</a>
+          <a href="#about_me" class="hover:text-rose-500 transition">O mne</a>
+          <a href="#ponuka" class="hover:text-rose-500 transition">Ponuka</a>
+          <a href="#kontakt" class="hover:text-rose-500 transition">Kontakt</a>
         </div>
+      </div>
     </nav>
 
-    <section id="domov" class="pt-32 pb-20 px-6 max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12">
-        <div class="md:w-1/2 space-y-6">
-            <h1 class="text-5xl md:text-6xl text-rose-900 leading-tight">Som dula zo Senca ...</h1>
-            <p class="text-lg text-slate-600 leading-relaxed">
-                Pomáham ženám nájsť ich vnútornú silu pri pôrode. Som tu pre vás ako opora, sprievodkyňa a pokojný prístav v období zrodenia.
-            </p>
-            <a href="#ponuka" class="inline-block bg-rose-400 text-white px-8 py-3 rounded-full hover:bg-rose-500 transition shadow-lg shadow-rose-200">
-                Moje služby
-            </a>
+    <section
+      id="domov"
+      class="pt-32 pb-20 px-6 max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12"
+    >
+      <div class="md:w-1/2 space-y-6">
+        <h1 class="text-5xl md:text-6xl text-rose-900 leading-tight">Vitaj</h1>
+        <p class="text-lg text-slate-600 leading-relaxed">
+          <!-- Ak Ťa moja ponuka zaujala a vybrala si si konkrétnu aktivitu, som rada  Prosím rovno si zarezervuj konkrétny termín vyplnením formulára, pretože môj kalendár je obmedzený vďaka milovanej „divočine“ u nás doma a pracovným aktivitám, ktoré mám popri tejto práci. -->
+        </p>
+        <p class="text-lg text-slate-600 leading-relaxed">
+          Som certifikovaná dula pôsobiaca v okolí Bratislavy, Senca, Galanty a
+          Trnavy. Sprevádzam ženy tehotenstvom, pôrodom a šestonedelím — s
+          láskou, prijatím a v plnom rešpekte k ich potrebám.
+        </p>
+        <p class="text-slate-500 mt-3">
+          Pozri si moje služby a vyber, čo Ti najviac vyhovuje.
+        </p>
+        <a
+          href="#ponuka"
+          class="inline-block bg-rose-400 text-white px-8 py-3 rounded-full hover:bg-rose-500 transition shadow-lg shadow-rose-200"
+        >
+          Moje služby
+        </a>
+      </div>
+      <div class="md:w-1/2">
+        <div
+          class="w-full h-[500px] bg-rose-200 rounded-2xl overflow-hidden shadow-2xl rotate-2"
+        >
+        <img src="full_body_foto.jpg" alt="Dula Zuzka" class="w-full h-full object-cover" />
+          <!-- <div
+            class="w-full h-full flex items-center justify-center text-rose-400"
+          >
+            foto
+          </div> -->
         </div>
-        <div class="md:w-1/2">
-            <div class="w-full h-[500px] bg-rose-200 rounded-2xl overflow-hidden shadow-2xl rotate-2">
-                <div class="w-full h-full flex items-center justify-center text-rose-400">foto</div>
-            </div>
-        </div>
+      </div>
     </section>
 
-    <section id="ponuka" class="py-20 bg-white reveal opacity-0 translate-y-10 transition-all duration-1000 p-8 border border-rose-50">
-        <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-4xl text-center mb-16 text-rose-900">Ako vám môžem pomôcť</h2>
-            <div class="grid md:grid-cols-2 gap-10 ">
-                <div class="p-8 border border-rose-50 rounded-3xl bg-relax hover:shadow-xl transition group reveal opacity-0 translate-y-10 transition-all duration-1000 p-8 border border-rose-50">
-                    <h3 class="text-2xl mb-4 text-rose-800">Kurz prípravy na pôrod</h3>
-                    <p class="text-slate-600 mb-6">Pripravte sa na príchod bábätka v kľude a s dostatkom informácií.</p>
-                    <a href="kurz.html" class="text-rose-500 font-medium group-hover:underline underline-offset-4">Viac o kurze &rarr;</a>
-                </div>
-                <div class="p-8 border border-rose-50 rounded-3xl bg-relax hover:shadow-xl transition group reveal opacity-0 translate-y-10 transition-all duration-1000 p-8 border border-rose-50">
-                    <h3 class="text-2xl mb-4 text-rose-800">Sprevádzanie pri pôrode</h3>
-                    <p class="text-slate-600 mb-6">Budem vašou kontinuálnou emocionálnou a fyzickou oporou priamo v pôrodnici.</p>
-                    <a href="sprievod.html" class="text-rose-500 font-medium group-hover:underline underline-offset-4">Viac o sprevádzaní &rarr;</a>
-                </div>
-            </div>
+    <section
+      id="about_me"
+      class="py-20 px-6 max-w-5xl mx-auto reveal opacity-0 translate-y-10 transition-all duration-1000"
+    >
+      <div
+        class="p-8 md:p-10 border border-rose-50 rounded-3xl bg-white shadow-lg shadow-rose-100/40"
+      >
+        <h2 class="text-4xl text-rose-900 mb-6">O mne</h2>
+
+        <p class="text-slate-600 leading-relaxed mb-6">
+          Som šťastnou mamou troch úžasných chlapcov — jedného chlapca, jedného
+          tínedžera a jedného mladého muža. Pôrod bol pre mňa vždy silným
+          zážitkom, no práve ten tretí, pri ktorom som sa mohla úplne odovzdať
+          procesu v bezpečnom prostredí so sprevádzaním duly, sa stal niečím
+          výnimočným. Tá neuveriteľná sila, ktorá mnou preprúdila, keď som sa
+          prestala kontrolovať a jednoducho dôverovala svojmu telu — to sa stalo
+          zdrojom mojej vnútornej sily dodnes.
+        </p>
+
+        <p class="text-slate-600 leading-relaxed mb-6">
+          Práve tento zážitok vo mne zapálil túžbu sprevádzať ďalšie ženy
+          rovnako láskyplne a bez odsudzovania. Chcem im ukázať, že pôrod nemusí
+          byť niečím, čoho sa treba báť — naopak, môže sa stať jedným z
+          najsilnejších a najkrajších momentov ich života.
+        </p>
+
+        <p class="text-slate-600 leading-relaxed">
+          Ak zvažuješ, aká forma prípravy by bola pre teba ideálna, môžeš začať
+          napríklad polhodinovou konzultáciou — spoločne to preberieme a ty sama
+          pocítiš, čo ti bude najlepšie sedieť.
+        </p>
+      </div>
+    </section>
+
+    <section
+      id="ponuka"
+      class="py-20 bg-white reveal opacity-0 translate-y-10 transition-all duration-1000 p-8 border border-rose-50"
+    >
+      <div class="max-w-5xl mx-auto px-6">
+        <h2 class="text-4xl text-center mb-16 text-rose-900">
+          Ako vám môžem pomôcť
+        </h2>
+        <div class="grid md:grid-cols-3 gap-10">
+          <div
+            class="p-8 border border-rose-50 rounded-3xl bg-relax hover:shadow-xl transition group reveal opacity-0 translate-y-10 transition-all duration-1000 p-8 border border-rose-50"
+          >
+            <h3 class="text-2xl mb-4 text-rose-800">Kurz prípravy na pôrod</h3>
+            <p class="text-slate-600 mb-6">
+              Pripravte sa na príchod bábätka v kľude a s dostatkom informácií.
+            </p>
+            <a
+              href="kurz.html"
+              class="text-rose-500 font-medium group-hover:underline underline-offset-4"
+              >Viac o kurze &rarr;</a
+            >
+          </div>
+          <div
+            class="p-8 border border-rose-50 rounded-3xl bg-relax hover:shadow-xl transition group reveal opacity-0 translate-y-10 transition-all duration-1000 p-8 border border-rose-50"
+          >
+            <h3 class="text-2xl mb-4 text-rose-800">Sprevádzanie pri pôrode</h3>
+            <p class="text-slate-600 mb-6">
+              Budem vašou kontinuálnou emocionálnou a fyzickou oporou priamo v
+              pôrodnici.
+            </p>
+            <a
+              href="sprievod.html"
+              class="text-rose-500 font-medium group-hover:underline underline-offset-4"
+              >Viac o sprevádzaní &rarr;</a
+            >
+          </div>
+          <div
+            class="p-8 border border-rose-50 rounded-3xl bg-relax hover:shadow-xl transition group reveal opacity-0 translate-y-10 transition-all duration-1000 p-8 border border-rose-50"
+          >
+            <h3 class="text-2xl mb-4 text-rose-800">Konzultácie</h3>
+            <p class="text-slate-600 mb-6">
+              Individuálny priestor na vaše otázky, obavy a prípravu podľa
+              vašich potrieb.
+            </p>
+            <a
+              href="konzultacie.html"
+              class="text-rose-500 font-medium group-hover:underline underline-offset-4"
+              >Viac o konzultáciách &rarr;</a
+            >
+          </div>
         </div>
+      </div>
     </section>
 
     <footer id="kontakt" class="py-12 border-t border-rose-100 text-center">
-        <p class="text-rose-900 font-semibold italic text-xl">Zuzana Michálková</p>
-        <p class="text-slate-500 mt-2">dula-zuzka@gmail.com | +421 902 740 497</p>
+      <p class="text-rose-900 font-semibold italic text-xl">
+        Zuzana Michálková
+      </p>
+      <p class="text-slate-500 mt-2">dula-zuzka@gmail.com | +421 902 740 497</p>
     </footer>
-
-</body>
+  </body>
 </html>
