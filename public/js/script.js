@@ -106,9 +106,12 @@ if(calendarEl){
     selectable: true,
     allDaySlot: false,
 
-
-    longPressDelay: 0,        
-    selectMinDistance: 5,     
+    selectMirror: true, 
+    unselectAuto: true,
+    longPressDelay: 0,           // Global delay
+    selectLongPressDelay: 0,     // Specific selection delay for touch
+    eventLongPressDelay: 0,
+    selectMinDistance: 0,        // Allows selection to trigger even if the finger doesn't move
     
     dateClick: function(info) {
         if (window.innerWidth < 768) {
