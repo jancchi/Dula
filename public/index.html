@@ -10,13 +10,15 @@
       href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <!--
     
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.20/index.global.min.js'></script> 
-    -->
     <script type="module" src="js/script.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.20/index.global.min.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="css/style.css"
+    />
 
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Inter:wght@300;400&display=swap"
@@ -43,8 +45,6 @@
       <div
         class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center"
       >
-        <!-- <div class="text-2xl font-semibold text-rose-400 italic">Logo</div> -->
-        <!-- <img src="images/logo_mama.png" alt="Dula Zuzka Logo" class="h-20 w-auto" /> -->
         <div class="space-x-8 hidden md:flex">
           <a href="#domov" class="hover:text-rose-500 transition">Úvod</a>
           <a href="#about_me" class="hover:text-rose-500 transition">O mne</a>
@@ -54,7 +54,7 @@
       </div>
     </nav>
 
-    <div class="flex h-screen items-center justify-center">
+    <div class="flex h-screen items-center justify-center mb-20">
       <img src="images/logo_mama.png" alt="Dula Zuzka Logo" class="h-50 w-auto center"/>
     </div>
 
@@ -62,7 +62,9 @@
       id="domov"
       class="pt-32 pb-20 px-6 max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-12"
     >
-      <div class="md:w-1/2 space-y-6">
+      <div
+        class="md:w-1/2 space-y-6 bg-white rounded-3xl p-8 md:p-10 border border-rose-100 shadow-xl shadow-rose-100/40"
+      >
         <h1 class="text-5xl md:text-6xl text-rose-900 leading-tight">Vitaj</h1>
         <p class="text-lg text-slate-600 leading-relaxed">
           <!-- Ak Ťa moja ponuka zaujala a vybrala si si konkrétnu aktivitu, som rada  Prosím rovno si zarezervuj konkrétny termín vyplnením formulára, pretože môj kalendár je obmedzený vďaka milovanej „divočine“ u nás doma a pracovným aktivitám, ktoré mám popri tejto práci. -->
