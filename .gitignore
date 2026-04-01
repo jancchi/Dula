@@ -1,8 +1,18 @@
 .env
-public/js/env.js
-build/
-node_modules/
-package*
 
-# Local Netlify folder
-.netlify
+# Generated frontend env module
+public/js/env.js
+
+# Dependencies and build outputs
+node_modules/
+build/
+dist/
+
+# Local tooling state
+.netlify/
+
+# Accidental local artifacts
+deno.lock
+*.log
+npm-debug.log*
+.DS_Store

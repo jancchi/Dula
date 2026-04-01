@@ -37,6 +37,8 @@ Set build command to:
 npm ci && npm run env:generate
 ```
 
+Set base directory to repo root (leave empty) and publish directory to `public`.
+
 Set publish directory to `public`.
 
 Important: anything loaded in browser JavaScript is visible to users. Airtable personal access tokens must stay server-side (Netlify Function), not in frontend code.
