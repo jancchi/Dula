@@ -3,3 +3,6 @@ public/js/env.js
 build/
 node_modules/
 package*
+
+# Local Netlify folder
+.netlify
