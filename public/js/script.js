@@ -2,14 +2,10 @@
  * Dula Project - Main JS
  */
 
-const API_KEY = "AIzaSyBdyFGCnt4I_NcxIhHU7wjAFRN8LrmoOn8";
-const CALENDAR_ID = "90602a0b6bda9b6f7c3b5a00b58cd39c8cfd488e629167149f8547483137ae7f@group.calendar.google.com";
+import { ENV } from './env.js';
 
-// ── Airtable ──────────────────────────────────────────────
-const AIRTABLE_TOKEN = "pat1234";   // ← nahraď svojím tokenom
-const AIRTABLE_BASE  = "app1234";   // ← nahraď svojím Base ID
-const AIRTABLE_TABLE = "Terminy";
-// ─────────────────────────────────────────────────────────
+const API_KEY = ENV.GOOGLE_API_KEY;
+const CALENDAR_ID = ENV.GOOGLE_CALENDAR_ID;
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -138,6 +134,41 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ── Airtable: načítanie skupinových termínov ──────────
+    function parseSlotDateTime(dateValue, timeValue) {
+        if (!dateValue) return null;
+
+        const dateObj = new Date(dateValue);
+        if (Number.isNaN(dateObj.getTime())) return null;
+
+        const [hoursRaw, minutesRaw] = String(timeValue || '00:00').split(':');
+        const hours = Number.parseInt(hoursRaw, 10);
+        const minutes = Number.parseInt(minutesRaw, 10);
+
+        dateObj.setHours(Number.isNaN(hours) ? 0 : hours, Number.isNaN(minutes) ? 0 : minutes, 0, 0);
+        return dateObj;
+    }
+
+    function normalizeAirtableRecord(record) {
+        const fields = record.fields || {};
+
+        const dateValue = fields.Datum ?? fields.datum ?? fields.Date ?? fields.date;
+        const timeValue = fields.Cas ?? fields.Čas ?? fields.cas ?? fields.time ?? fields.Time ?? '00:00';
+        const capacityValue = Number(fields.Kapacita ?? fields.kapacita ?? fields.Capacity ?? fields.capacity ?? 0);
+        const occupiedValue = Number(fields.Obsadene ?? fields['Obsadené'] ?? fields.obsadene ?? fields.occupied ?? 0);
+        const slotDateTime = parseSlotDateTime(dateValue, timeValue);
+
+        if (!slotDateTime) return null;
+
+        return {
+            id: record.id,
+            dateValue,
+            timeValue: String(timeValue),
+            capacity: Number.isFinite(capacityValue) ? capacityValue : 0,
+            occupied: Number.isFinite(occupiedValue) ? occupiedValue : 0,
+            slotDateTime
+        };
+    }
+
     async function fetchGroupSlots() {
         const container = document.getElementById('skupinove-sloty');
         if (!container) return;
@@ -153,24 +184,20 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         try {
-            const url = `https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}` +
-                        `?sort[0][field]=Datum&sort[0][direction]=asc`;
+            const res = await fetch('/.netlify/functions/airtable-slots');
 
-            const res = await fetch(url, {
-                headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` }
-            });
-
-            if (!res.ok) throw new Error(`Airtable API error: ${res.status}`);
+            if (!res.ok) {
+                const errorText = await res.text();
+                throw new Error(`Netlify function error: ${res.status} ${res.statusText} | ${errorText}`);
+            }
 
             const data = await res.json();
-            const today = new Date();
-            today.setHours(0, 0, 0, 0);
+            const now = new Date();
 
-            // Filtrovať len budúce termíny
-            const futureRecords = data.records.filter(r => {
-                const d = new Date(r.fields.Datum);
-                return d >= today;
-            });
+            const futureRecords = (data.records || [])
+                .map(normalizeAirtableRecord)
+                .filter(record => record && record.slotDateTime >= now)
+                .sort((a, b) => a.slotDateTime - b.slotDateTime);
 
             if (futureRecords.length === 0) {
                 container.innerHTML = `
@@ -185,12 +212,23 @@ document.addEventListener('DOMContentLoaded', () => {
             renderSlotCards(futureRecords, container);
 
         } catch (err) {
+            const errMsg = String(err?.message || '');
+            const isAuthError = errMsg.includes('401') || errMsg.includes('AUTHENTICATION_REQUIRED');
+            const isPermissionOrModelError = errMsg.includes('403') || errMsg.includes('INVALID_PERMISSIONS_OR_MODEL_NOT_FOUND');
+            const isMissingEnv = errMsg.includes('Missing environment variables');
+
             container.innerHTML = `
                 <p class="text-center text-rose-400 py-12">
-                    Termíny sa nepodarilo načítať. Skúste obnoviť stránku.
+                    ${isMissingEnv
+                        ? 'Na serveri chýbajú AIRTABLE premenné v Netlify Environment Variables.'
+                        : isAuthError
+                        ? 'Airtable overenie zlyhalo (401). Skontroluj AIRTABLE_TOKEN a jeho práva (scope data.records:read pre túto Base).'
+                        : isPermissionOrModelError
+                            ? 'Airtable vrátil 403. Skontroluj, že token má prístup k tejto Base a AIRTABLE_TABLE/AIRTABLE_TABLE_ID presne zodpovedá existujúcej tabuľke.'
+                        : 'Termíny sa nepodarilo načítať. Skúste obnoviť stránku.'}
                 </p>
             `;
-            console.error("Airtable fetch error:", err);
+            console.error('Airtable fetch error via Netlify function:', err);
         }
     }
 
@@ -200,13 +238,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const cards = records.map(record => {
-            const { Datum, Cas, Kapacita, Obsadene } = record.fields;
-            const isFull = (Obsadene ?? 0) >= (Kapacita ?? 0);
-            const remaining = (Kapacita ?? 0) - (Obsadene ?? 0);
+            const { timeValue, capacity, occupied, slotDateTime } = record;
+            const isFull = occupied >= capacity;
+            const remaining = capacity - occupied;
 
-            const dateObj = new Date(Datum);
-            const humanDate = dateFormatter.format(dateObj);
-            const displayText = `${humanDate} o ${Cas}`;
+            const humanDate = dateFormatter.format(slotDateTime);
+            const displayText = `${humanDate} o ${timeValue}`;
 
             if (isFull) {
                 return `
@@ -216,8 +253,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="text-sm bg-slate-200 text-slate-500 px-3 py-1 rounded-full">Obsadené</span>
                         </div>
                         <div class="flex items-center justify-between text-sm text-slate-400">
-                            <span>🕐 ${Cas}</span>
-                            <span>0 z ${Kapacita} miest</span>
+                            <span>🕐 ${timeValue}</span>
+                            <span>0 z ${capacity} miest</span>
                         </div>
                     </div>
                 `;
@@ -236,9 +273,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span class="text-sm bg-rose-100 text-rose-600 px-3 py-1 rounded-full">Voľné</span>
                     </div>
                     <div class="flex items-center justify-between text-sm text-slate-500">
-                        <span>🕐 ${Cas}</span>
+                        <span>🕐 ${timeValue}</span>
                         <span class="${remaining <= 2 ? 'text-amber-500 font-medium' : 'text-slate-400'}">
-                            ${remaining} z ${Kapacita} miest
+                            ${remaining} z ${capacity} miest
                         </span>
                     </div>
                 </button>
