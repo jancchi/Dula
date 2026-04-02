@@ -7,9 +7,6 @@
     <title>Sprevádzanie pri pôrode</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.20/index.global.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.20/index.global.min.js'></script>
-
     <script type="module" src="js/script.js"></script>
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -44,9 +41,9 @@
                 <div class="bg-rose-100/50 p-6 rounded-2xl border border-rose-200">
                     <h3 class="font-bold text-rose-800 mb-2 font-serif text-xl">Inštrukcie k rezervácii:</h3>
                     <ul class="list-disc list-inside space-y-2 text-slate-700">
-                        <li>V kalendári nižšie si vyberte voľný čas (biele polia).</li>
-                        <li>Kliknutím a potiahnutím si označte dĺžku stretnutia.</li>
-                        <li>Vybraný čas sa automaticky zapíše do formulára vpravo.</li>
+                        <li>Nižšie si vyberte mesiac, v ktorom  máte odhadovaný termín pôrodu.</li>
+                        <li>Vybraný mesiac sa automaticky zapíše do formulára vpravo.</li>
+                        <li>Šedé mesiace sú neaktívne.</li>
                     </ul>
                 </div>
             </div>
@@ -64,10 +61,10 @@
                         <input type="text" name="contact" required class="w-full p-3 rounded-lg border-rose-100 border bg-rose-50/30 focus:outline-rose-400 transition-all">
                     </div>
                     <div>
-                        <label class="block text-sm mb-1 font-medium">Vybraný čas</label>
+                        <label class="block text-sm mb-1 font-medium">Vybraný mesiac</label>
                         <input id="date_input" readonly name="date" required 
                                class="w-full p-3 rounded-lg border-rose-200 border bg-white font-bold text-rose-600 focus:outline-none cursor-default"
-                               placeholder="Kliknite do kalendára...">
+                               placeholder="Kliknite na mesiac nižšie...">
                     </div>
                     <button type="submit" class="w-full bg-rose-400 text-white py-4 rounded-xl hover:bg-rose-500 shadow-lg shadow-rose-200 transition-all font-bold">
                         Odoslať rezerváciu
@@ -77,8 +74,57 @@
         </div>
 
         <div class="bg-white p-4 md:p-8 rounded-3xl shadow-inner border border-rose-100">
-            <h3 class="text-2xl mb-6 font-serif text-rose-900">Kalendár dostupnosti</h3>
-            <div id="calendar" class="min-h-[600px]"></div>
+            <h3 class="text-2xl mb-6 font-serif text-rose-900">Dostupné mesiace</h3>
+            <div id="month-bubbles" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                <button type="button" data-month="Január" class=" off month-bubble text-left flex items-center justify-between p-5 rounded-2xl border border-rose-200 bg-white hover:bg-rose-50 hover:border-rose-400 hover:shadow-md transition-all duration-200 cursor-pointer group">
+                    <span class="font-medium text-rose-900 group-hover:text-rose-700">Január</span>
+                    <span class="text-sm bg-rose-100 text-rose-600 px-3 py-1 rounded-full">Voľný</span>
+                </button>
+                <button type="button" data-month="Február" class=" off month-bubble text-left flex items-center justify-between p-5 rounded-2xl border border-rose-200 bg-white hover:bg-rose-50 hover:border-rose-400 hover:shadow-md transition-all duration-200 cursor-pointer group">
+                    <span class="font-medium text-rose-900 group-hover:text-rose-700">Február</span>
+                    <span class="text-sm bg-rose-100 text-rose-600 px-3 py-1 rounded-full">Voľný</span>
+                </button>
+                <button type="button" data-month="Marec" class=" off month-bubble text-left flex items-center justify-between p-5 rounded-2xl border border-rose-200 bg-white hover:bg-rose-50 hover:border-rose-400 hover:shadow-md transition-all duration-200 cursor-pointer group">
+                    <span class="font-medium text-rose-900 group-hover:text-rose-700">Marec</span>
+                    <span class="text-sm bg-rose-100 text-rose-600 px-3 py-1 rounded-full">Voľný</span>
+                </button>
+                <button type="button" data-month="Apríl" class=" off month-bubble text-left flex items-center justify-between p-5 rounded-2xl border border-rose-200 bg-white hover:bg-rose-50 hover:border-rose-400 hover:shadow-md transition-all duration-200 cursor-pointer group">
+                    <span class="font-medium text-rose-900 group-hover:text-rose-700">Apríl</span>
+                    <span class="text-sm bg-rose-100 text-rose-600 px-3 py-1 rounded-full">Voľný</span>
+                </button>
+                <button type="button" data-month="Máj" class="month-bubble text-left flex items-center justify-between p-5 rounded-2xl border border-rose-200 bg-white hover:bg-rose-50 hover:border-rose-400 hover:shadow-md transition-all duration-200 cursor-pointer group">
+                    <span class="font-medium text-rose-900 group-hover:text-rose-700">Máj</span>
+                    <span class="text-sm bg-rose-100 text-rose-600 px-3 py-1 rounded-full">Voľný</span>
+                </button>
+                <button type="button" data-month="Jún" class="month-bubble text-left flex items-center justify-between p-5 rounded-2xl border border-rose-200 bg-white hover:bg-rose-50 hover:border-rose-400 hover:shadow-md transition-all duration-200 cursor-pointer group">
+                    <span class="font-medium text-rose-900 group-hover:text-rose-700">Jún</span>
+                    <span class="text-sm bg-rose-100 text-rose-600 px-3 py-1 rounded-full">Voľný</span>
+                </button>
+                <button type="button" data-month="Júl" class=" off month-bubble text-left flex items-center justify-between p-5 rounded-2xl border border-rose-200 bg-white hover:bg-rose-50 hover:border-rose-400 hover:shadow-md transition-all duration-200 cursor-pointer group">
+                    <span class="font-medium text-rose-900 group-hover:text-rose-700">Júl</span>
+                    <span class="text-sm bg-rose-100 text-rose-600 px-3 py-1 rounded-full">Voľný</span>
+                </button>
+                <button type="button" data-month="August" class=" off month-bubble text-left flex items-center justify-between p-5 rounded-2xl border border-rose-200 bg-white hover:bg-rose-50 hover:border-rose-400 hover:shadow-md transition-all duration-200 cursor-pointer group">
+                    <span class="font-medium text-rose-900 group-hover:text-rose-700">August</span>
+                    <span class="text-sm bg-rose-100 text-rose-600 px-3 py-1 rounded-full">Voľný</span>
+                </button>
+                <button type="button" data-month="September" class="month-bubble text-left flex items-center justify-between p-5 rounded-2xl border border-rose-200 bg-white hover:bg-rose-50 hover:border-rose-400 hover:shadow-md transition-all duration-200 cursor-pointer group">
+                    <span class="font-medium text-rose-900 group-hover:text-rose-700">September</span>
+                    <span class="text-sm bg-rose-100 text-rose-600 px-3 py-1 rounded-full">Voľný</span>
+                </button>
+                <button type="button" data-month="Október" class="month-bubble text-left flex items-center justify-between p-5 rounded-2xl border border-rose-200 bg-white hover:bg-rose-50 hover:border-rose-400 hover:shadow-md transition-all duration-200 cursor-pointer group">
+                    <span class="font-medium text-rose-900 group-hover:text-rose-700">Október</span>
+                    <span class="text-sm bg-rose-100 text-rose-600 px-3 py-1 rounded-full">Voľný</span>
+                </button>
+                <button type="button" data-month="November" class="month-bubble text-left flex items-center justify-between p-5 rounded-2xl border border-rose-200 bg-white hover:bg-rose-50 hover:border-rose-400 hover:shadow-md transition-all duration-200 cursor-pointer group">
+                    <span class="font-medium text-rose-900 group-hover:text-rose-700">November</span>
+                    <span class="text-sm bg-rose-100 text-rose-600 px-3 py-1 rounded-full">Voľný</span>
+                </button>
+                <button type="button" data-month="December" class=" off month-bubble text-left flex items-center justify-between p-5 rounded-2xl border border-rose-200 bg-white hover:bg-rose-50 hover:border-rose-400 hover:shadow-md transition-all duration-200 cursor-pointer group">
+                    <span class="font-medium text-rose-900 group-hover:text-rose-700">December</span>
+                    <span class="text-sm bg-rose-100 text-rose-600 px-3 py-1 rounded-full">Voľný</span>
+                </button>
+            </div>
         </div>
     </div>
 

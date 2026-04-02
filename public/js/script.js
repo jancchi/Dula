@@ -78,6 +78,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function setTextInputValue(value) {
+        const input = document.getElementById('date_input');
+        if (input) {
+            input.value = value;
+            input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            input.classList.add('ring-2', 'ring-rose-400');
+            setTimeout(() => input.classList.remove('ring-2', 'ring-rose-400'), 1000);
+        }
+    }
+
+    // ── Sprievod: výber mesiaca cez bubbles ───────────────
+    function initMonthBubbles() {
+        const bubbles = document.querySelectorAll('.month-bubble');
+        if (!bubbles.length) return;
+
+        bubbles.forEach(bubble => {
+            if (bubble.classList.contains('off')) {
+                bubble.setAttribute('aria-disabled', 'true');
+                bubble.setAttribute('tabindex', '-1');
+                return;
+            }
+
+            bubble.addEventListener('click', () => {
+                bubbles.forEach(item => {
+                    item.classList.remove('ring-2', 'ring-rose-400', 'bg-rose-50', 'border-rose-400');
+                });
+
+                bubble.classList.add('ring-2', 'ring-rose-400', 'bg-rose-50', 'border-rose-400');
+                setTextInputValue(String(bubble.dataset.month || '').trim());
+            });
+        });
+    }
+
     // ── FullCalendar (individuálna) ───────────────────────
     const calendarEl = document.getElementById('calendar');
     let calendarInstance = null;
@@ -325,5 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    initMonthBubbles();
 
 });
