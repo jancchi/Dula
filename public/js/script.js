@@ -6,6 +6,7 @@ import { ENV } from './env.js';
 
 const API_KEY = ENV.GOOGLE_API_KEY;
 const CALENDAR_ID = ENV.GOOGLE_CALENDAR_ID;
+const WEB3FORMS_KEY = 'a7675e84-38ca-4e15-a6f0-72b2d2a08422';
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -22,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-    // ── Netlify form submit ───────────────────────────────
-    const bookingForm = document.querySelector('form[data-netlify="true"]');
+    // ── Web3Forms submit ──────────────────────────────────
+    const bookingForm = document.querySelector('form[data-booking]');
 
     if (bookingForm) {
         bookingForm.addEventListener('submit', async (e) => {
@@ -36,14 +37,19 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerText = "Odosielam...";
             submitBtn.disabled = true;
 
+            const payload = Object.fromEntries(formData.entries());
+            payload.access_key = WEB3FORMS_KEY;
+
             try {
-                const response = await fetch("/", {
+                const response = await fetch("https://api.web3forms.com/submit", {
                     method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: new URLSearchParams(formData).toString(),
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
                 });
 
-                if (response.ok) {
+                const result = await response.json();
+
+                if (response.ok && result.success) {
                     bookingForm.innerHTML = `
                         <div class="text-center py-8 space-y-4">
                             <div class="text-5xl">🌸</div>
@@ -52,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     `;
                 } else {
-                    throw new Error("Chyba pri odosielaní");
+                    throw new Error(result.message || "Chyba pri odosielaní");
                 }
             } catch (error) {
                 alert("Ups, niečo sa nepodarilo. Skúste to prosím neskôr alebo napíšte email. error: " + error);
@@ -217,11 +223,11 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
 
         try {
-            const res = await fetch('/.netlify/functions/airtable-slots');
+            const res = await fetch('/api/airtable-slots');
 
             if (!res.ok) {
                 const errorText = await res.text();
-                throw new Error(`Netlify function error: ${res.status} ${res.statusText} | ${errorText}`);
+                throw new Error(`Function error: ${res.status} ${res.statusText} | ${errorText}`);
             }
 
             const data = await res.json();
@@ -253,7 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
             container.innerHTML = `
                 <p class="text-center text-rose-400 py-12">
                     ${isMissingEnv
-                        ? 'Na serveri chýbajú AIRTABLE premenné v Netlify Environment Variables.'
+                        ? 'Na serveri chýbajú AIRTABLE premenné v Cloudflare Environment Variables.'
                         : isAuthError
                         ? 'Airtable overenie zlyhalo (401). Skontroluj AIRTABLE_TOKEN a jeho práva (scope data.records:read pre túto Base).'
                         : isPermissionOrModelError
@@ -261,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         : 'Termíny sa nepodarilo načítať. Skúste obnoviť stránku.'}
                 </p>
             `;
-            console.error('Airtable fetch error via Netlify function:', err);
+            console.error('Airtable fetch error via Cloudflare function:', err);
         }
     }
 
@@ -320,15 +326,12 @@ document.addEventListener('DOMContentLoaded', () => {
         // Klik na slot → zápis do formulára
         container.querySelectorAll('.slot-card').forEach(card => {
             card.addEventListener('click', () => {
-                // Zruš highlight ostatných
                 container.querySelectorAll('.slot-card').forEach(c => {
                     c.classList.remove('ring-2', 'ring-rose-400', 'bg-rose-50', 'border-rose-400');
                 });
 
-                // Zvýrazni vybraný
                 card.classList.add('ring-2', 'ring-rose-400', 'bg-rose-50', 'border-rose-400');
 
-                // Zapis do input
                 const input = document.getElementById("date_input");
                 if (input) {
                     input.value = card.dataset.display;
@@ -350,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (radio.value === 'individualna') {
                 slotsWrapper?.classList.add('hidden');
                 calendarWrapper?.classList.remove('hidden');
-                initCalendar(); // lazy init — calendar sa renderuje až keď je viditeľný
+                initCalendar();
             } else if (radio.value === 'skupinova') {
                 calendarWrapper?.classList.add('hidden');
                 slotsWrapper?.classList.remove('hidden');

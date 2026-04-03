@@ -1,2 +1,6 @@
-[assets]
-directory = "./public"
+name = "dula-website"
+pages_build_output_dir = "public"
+compatibility_date = "2025-01-01"
+
+[build]
+command = "npm ci && npm run env:generate"
