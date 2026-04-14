@@ -291,13 +291,15 @@ document.addEventListener('DOMContentLoaded', () => {
                             <span class="font-medium text-slate-400">${humanDate}</span>
                             <span class="text-sm bg-slate-200 text-slate-500 px-3 py-1 rounded-full">Obsadené</span>
                         </div>
-                        <div class="flex items-center justify-between text-sm text-slate-400">
-                            <span>0 z ${capacity} miest</span>
-                        </div>
                     </div>
                 `;
             }
-//<span>🕐 ${timeValue}</span>
+/*
+<div class="flex items-center justify-between text-sm text-slate-400">
+    <span>🕐 ${timeValue}</span>
+    <span>0 z ${capacity} miest</span>
+</div>
+*/
             return `
                 <button
                     type="button"
@@ -309,11 +311,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="flex items-center justify-between">
                         <span class="font-medium text-rose-900 group-hover:text-rose-700">${humanDate}</span>
                         <span class="text-sm bg-rose-100 text-rose-600 px-3 py-1 rounded-full">Voľné</span>
-                    </div>
-                    <div class="flex items-center justify-between text-sm text-slate-500">
-                        <span class="${remaining <= 2 ? 'text-amber-500 font-medium' : 'text-slate-400'}">
-                            ${remaining} z ${capacity} miest
-                        </span>
                     </div>
                 </button>
             `;
