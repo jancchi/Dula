@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <title>Access Bars terapia</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar-scheduler@6.1.20/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/google-calendar@6.1.20/index.global.min.js'></script>
+
+    <script type="module" src="js/script.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#fdf2f2] text-slate-800">
+
+    <div class="max-w-6xl mx-auto px-4 md:px-6 py-12">
+        <a href="index.html" class="text-rose-500 mb-8 inline-block hover:underline">← Späť na úvod</a>
+
+        <h1 class="text-4xl text-rose-900 mb-10 font-serif">Access Bars terapia</h1>
+
+        <div class="grid lg:grid-cols-3 gap-10 mb-16">
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-gradient-to-r from-rose-500 to-pink-500 text-white p-6 rounded-2xl shadow-lg">
+                    <h2 class="text-2xl font-serif mb-4">Cena</h2>
+                    <div class="bg-white/15 p-4 rounded-xl border border-white/30 inline-block">
+                        <p class="text-3xl font-bold">40 Eur</p>
+                        <p class="text-sm text-rose-100 mt-2">Hodinová terapia</p>
+                    </div>
+                </div>
+
+                <p class="text-lg leading-relaxed text-slate-600">
+                    Hodinová stimulácia bodov na hlave.<br><br>
+                    Upokojenie tela i mysle, uvoľnenie stresu, nahromadenej emočnej záťaže a fyzických blokád.
+                </p>
+
+                <div class="bg-rose-100/50 p-6 rounded-2xl border border-rose-200">
+                    <h3 class="font-bold text-rose-800 mb-2 font-serif text-xl">Inštrukcie k rezervácii:</h3>
+                    <ul class="list-disc list-inside space-y-2 text-slate-700">
+                        <li>Vyberte si termín z kalendára nižšie.</li>
+                        <li>Vyplňte formulár a odošlite rezerváciu.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-3xl shadow-lg border border-rose-100">
+                <h3 class="text-xl mb-6 font-serif text-rose-800">Rezervovať termín</h3>
+                <form name="rezervacia-accessbars" method="POST" data-booking class="space-y-4">
+                    <input type="hidden" name="subject" value="Nová rezervácia – Access Bars terapia">
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Meno a priezvisko</label>
+                        <input type="text" name="name" required class="w-full p-3 rounded-lg border-rose-100 border bg-rose-50/30 focus:outline-rose-400 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Email / Telefón</label>
+                        <input type="text" name="contact" required class="w-full p-3 rounded-lg border-rose-100 border bg-rose-50/30 focus:outline-rose-400 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Vybraný čas</label>
+                        <input id="date_input" readonly name="date" required
+                               class="w-full p-3 rounded-lg border-rose-200 border bg-white font-bold text-rose-600 focus:outline-none cursor-default"
+                               placeholder="Kliknite na termín v kalendári...">
+                    </div>
+                    <button type="submit" class="w-full bg-rose-400 text-white py-4 rounded-xl hover:bg-rose-500 shadow-lg shadow-rose-200 transition-all font-bold">
+                        Odoslať rezerváciu
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div id="calendar-wrapper">
+            <div class="bg-white p-4 md:p-8 rounded-3xl shadow-inner border border-rose-100">
+                <h3 class="text-2xl mb-6 font-serif text-rose-900">Kalendár dostupnosti</h3>
+                <div id="calendar" class="min-h-[600px]"></div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
