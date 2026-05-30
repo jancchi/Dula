@@ -357,6 +357,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Pages without a type toggle (e.g. naparka, rebozo, accessbars) just show
+    // the individual calendar by default — auto-init it.
+    if (radioButtons.length === 0 && calendarEl) {
+        calendarWrapper?.classList.remove('hidden');
+        initCalendar();
+    }
+
     initMonthBubbles();
 
 });
