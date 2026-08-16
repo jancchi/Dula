@@ -1,7 +1,9 @@
 {
   "scripts": {
     "env:generate": "node scripts/generate-env.js",
-    "env:refresh": "npm run env:generate"
+    "env:refresh": "npm run env:generate",
+    "deploy": "wrangler deploy",
+    "preview": "wrangler dev"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.20",
@@ -10,6 +12,7 @@
     "fullcalendar": "^6.1.20"
   },
   "devDependencies": {
-    "dotenv": "^16.6.1"
+    "dotenv": "^16.6.1",
+    "wrangler": "^4.80.0"
   }
 }
