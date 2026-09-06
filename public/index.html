@@ -38,29 +38,81 @@
     </style>
   </head>
   <body class="bg-relax text-slate-800">
-    <nav
-      class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-rose-100"
-    >
-      <div
-        class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center"
-      >
-        <div class="space-x-8 hidden md:flex">
+    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-rose-100">
+      <div class="max-w-5xl mx-auto px-6 py-3 flex justify-between items-center">
+        
+        <!-- Logo vľavo -->
+        <a href="#domov" class="flex items-center">
+          <img src="images/logo_mama.png" alt="Dula Zuzka Logo" class="h-10 w-auto object-contain" />
+        </a>
+
+        <!-- Desktop menu (pre väčšie obrazovky) -->
+        <div class="space-x-8 hidden md:flex text-gray-700">
           <a href="#domov" class="hover:text-rose-500 transition">Úvod</a>
           <a href="#about_me" class="hover:text-rose-500 transition">O mne</a>
           <a href="#ponuka" class="hover:text-rose-500 transition">Ponuka</a>
           <a href="#kontakt" class="hover:text-rose-500 transition">Kontakt</a>
         </div>
+
+        <!-- Hamburger tlačidlo (zobrazí sa len na mobile) -->
+        <button id="menu-btn" class="md:hidden text-gray-700 hover:text-rose-500 focus:outline-none" aria-label="Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+
+      </div>
+
+      <!-- Mobilné menu (predvolene skryté pomocou 'hidden') -->
+      <div id="mobile-menu" class="hidden md:hidden bg-white/95 border-b border-rose-100 px-6 py-4 flex flex-col space-y-4 text-gray-700">
+        <a href="#domov" class="hover:text-rose-500 transition">Úvod</a>
+        <a href="#about_me" class="hover:text-rose-500 transition">O mne</a>
+        <a href="#ponuka" class="hover:text-rose-500 transition">Ponuka</a>
+        <a href="#kontakt" class="hover:text-rose-500 transition">Kontakt</a>
       </div>
     </nav>
 
-    <div class="pt-28 pb-8 flex justify-center px-4">
+    <div class="pt-20"></div>
+
+    <!-- JavaScript na prepínanie menu -->
+    <script>
+      const menuBtn = document.getElementById('menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+
+      // Otvorenie/zatvorenie pri kliknutí na hamburger
+      menuBtn.addEventListener('click', (event) => {
+        mobileMenu.classList.toggle('hidden');
+        // Zamedzí tomu, aby tento klik okamžite zachytil dokument nižšie
+        event.stopPropagation(); 
+      });
+
+      // Skrytie menu, keď používateľ klikne na nejaký odkaz
+      mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+        });
+      });
+
+      // Skrytie menu, keď používateľ klikne mimo neho
+      document.addEventListener('click', (event) => {
+        // Skontroluje, či menu nie je skryté a či kliknutie padlo mimo menu a tlačidla
+        if (!mobileMenu.classList.contains('hidden') && 
+            !mobileMenu.contains(event.target) && 
+            !menuBtn.contains(event.target)) {
+          mobileMenu.classList.add('hidden');
+        }
+      });
+    </script>
+
+
+    <div class="md:hidden pt-28 pb-8 flex justify-center px-4">
       <img
         src="images/logo_mama.png"
         alt="Dula Zuzka Logo"
         class="md:h-48 object-contain"
       />
     </div>
-    <div class="grid grid-cols-2 gap-6">
+    <div class="grid grid-cols-2 gap-6 max-w-5xl mx-auto">
 
 
         <div class="flex items-center justify-center mb-20 px-4">
@@ -167,7 +219,7 @@
 
         <p class="text-slate-600 leading-relaxed mb-8">
           Až po deviatich rokoch odvtedy sa mi v živote vytvoril priestor na
-          túto prácu. Ďakujem môjmu partnerovi za podporu, najstaršiemu synovi za pomoc s touto stránkou a
+          túto prácu. Ďakujem môjmu partnerovi za podporu, najstaršiemu synovi za vytvorenie a správu tejto stránky a
           partnerovej dcére za vytvorenie môjho krásneho loga.
         </p>
 
