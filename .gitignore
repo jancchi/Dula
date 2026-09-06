@@ -16,3 +16,10 @@ deno.lock
 *.log
 npm-debug.log*
 .DS_Store
+
+# Cloudflare Wrangler build and state artifacts
+.wrangler/
+
+# Wrangler local secrets / environment variables
+.dev.vars
+
