@@ -37,7 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerText = "Odosielam...";
             submitBtn.disabled = true;
 
-            const payload = Object.fromEntries(formData.entries());
+            // Object.fromEntries by zahodilo všetko okrem poslednej hodnoty,
+            // preto polia s viacerými hodnotami (checkboxy) spojíme do jedného textu.
+            const payload = {};
+            formData.forEach((value, key) => {
+                payload[key] = key in payload ? `${payload[key]}, ${value}` : value;
+            });
             payload.access_key = WEB3FORMS_KEY;
 
             try {
